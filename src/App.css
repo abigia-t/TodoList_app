@@ -1,38 +1,217 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  padding: 20px;
+}
+
 .App {
+  max-width: 800px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  min-height: 80vh;
+}
+
+/* Header Styles */
+.addTask {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 40px 30px;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.addTask h1 {
+  color: white;
+  margin-bottom: 30px;
+  font-size: 2.5rem;
+  font-weight: 300;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.addTask input {
+  width: 60%;
+  padding: 15px 20px;
+  border: none;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  margin-right: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.addTask input:focus {
+  outline: none;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.addTask button {
+  padding: 15px 30px;
+  background: #ff6b6b;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+}
+
+.addTask button:hover {
+  background: #ff5252;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(255, 107, 107, 0.6);
+}
+
+.addTask button:active {
+  transform: translateY(0);
+}
+
+/* Task List Styles */
+.list {
+  padding: 30px;
+  min-height: 400px;
+}
+
+.list > div {
+  background: #f8f9fa;
+  margin-bottom: 15px;
+  padding: 20px 25px;
+  border-radius: 15px;
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease;
+  border-left: 5px solid #667eea;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.list > div:hover {
+  transform: translateX(5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  background: white;
+}
+
+.list h1 {
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: #2d3748;
+  flex-grow: 1;
+  margin-right: 20px;
+}
+
+.list button {
+  background: #ff6b6b;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1.2rem;
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  box-shadow: 0 3px 10px rgba(255, 107, 107, 0.3);
 }
 
-.App-link {
-  color: #61dafb;
+.list button:hover {
+  background: #ff5252;
+  transform: scale(1.1);
+  box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
 }
 
-@keyframes App-logo-spin {
+/* Empty State */
+.list:empty::before {
+  content: "No tasks yet. Add some tasks above!";
+  text-align: center;
+  color: #a0aec0;
+  font-size: 1.2rem;
+  display: block;
+  padding: 60px 20px;
+  font-style: italic;
+}
+
+/* Animation for new tasks */
+@keyframes slideIn {
   from {
-    transform: rotate(0deg);
+    opacity: 0;
+    transform: translateY(-20px);
   }
   to {
-    transform: rotate(360deg);
+    opacity: 1;
+    transform: translateY(0);
   }
+}
+
+.list > div {
+  animation: slideIn 0.3s ease;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .App {
+    margin: 10px;
+    border-radius: 15px;
+  }
+  
+  .addTask {
+    padding: 30px 20px;
+  }
+  
+  .addTask input {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 15px;
+  }
+  
+  .addTask button {
+    width: 100%;
+  }
+  
+  .list {
+    padding: 20px;
+  }
+  
+  .list > div {
+    flex-direction: column;
+    text-align: center;
+    gap: 15px;
+  }
+  
+  .list h1 {
+    margin-right: 0;
+  }
+}
+
+/* Custom scrollbar */
+.list {
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e0 #f7fafc;
+}
+
+.list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.list::-webkit-scrollbar-track {
+  background: #f7fafc;
+  border-radius: 3px;
+}
+
+.list::-webkit-scrollbar-thumb {
+  background: #cbd5e0;
+  border-radius: 3px;
+}
+
+.list::-webkit-scrollbar-thumb:hover {
+  background: #a0aec0;
 }
